@@ -1,5 +1,3 @@
-from random import randint
-
 class Elephant:
 
     def __init__(self, Name : str, Age : int, AmountOfFood, Gender : bool = True, Happiness : int = 65):

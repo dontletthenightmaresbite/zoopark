@@ -1,52 +1,64 @@
-class Wolf:
+class BaseAnimal:
 
-    def __init__(self, Name : str, Age : int, AmountOfFood, Gender : bool = True, Happiness : int = 65):
+    def __init__(self, Name : str, Age : int, AmountOfFood, Gender : bool, Sound : str, Happiness : int, Food : list, Foods : dict, isVegan : bool, Biome : str, Type : str):
         self.__gender = Gender
         self.__name = Name
         self.__age = Age
         self.__amountOfFood = AmountOfFood
         self.__area = 10
-        self.__food = ["мясо"]
-        self.__foods = {"мясо":"мясо"}
-        self.__isVegan = False
-        self.__biome = "Пустыня"
+        self.__food = Food
+        self.__foods = Foods
+        self.__isVegan = isVegan
+        self.__biome = Biome
         self.__foodAte = 0
-        self.__type = "волк"
+        self.__type = Type
         self.__happiness = Happiness
+        self.__sound = Sound
     
     @property
-    def Age(self):
+    def age(self):
         return self.__age
 
     @property
-    def Name(self):
+    def name(self):
         return self.__name
 
     @property
-    def Type(self):
+    def area(self):
+        return self.__area
+
+    @area.setter
+    def area(self, value):
+        self.__area = value
+
+    def setArea(self, value):
+        self.__area = value
+
+    @property
+    def type(self):
         return self.__type
 
     @property
-    def Food(self):
+    def food(self):
         return self.__food
 
     @property
-    def Biome(self):
+    def biome(self):
         return self.__biome
 
     @property
-    def Happiness(self):
+    def happiness(self):
         return self.__happiness
 
-    @Happiness.setter
-    def Happiness(self, value):
+    @happiness.setter
+    def happiness(self, value):
         if value > 100:
             self.__happiness = 100
         elif value < 0:
             self.happiness = 0
         else:
             self.__happiness = value
-
+    
     @property
     def isFeeded(self):
         return self.__foodAte >= self.__amountOfFood
@@ -62,7 +74,7 @@ class Wolf:
             print(self.__name, "наел" + ("ся" if self.__gender else "ась"))
 
     def makeSound(self):
-        print("Ауф")
+        print(self.__sound)
 
     def play(self):
-        print(self.name + " играет")
+        print(self.__name + " играет")
