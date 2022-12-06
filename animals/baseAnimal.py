@@ -31,9 +31,6 @@ class BaseAnimal:
     def area(self, value):
         self.__area = value
 
-    def setArea(self, value):
-        self.__area = value
-
     @property
     def type(self):
         return self.__type
