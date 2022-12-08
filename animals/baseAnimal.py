@@ -14,6 +14,15 @@ class BaseAnimal:
         self.__type = Type
         self.__happiness = Happiness
         self.__sound = Sound
+        self.__aviary = 0
+    
+    @property
+    def aviary(self):
+        return self.__aviary
+
+    @aviary.setter
+    def aviary(self, aviary):
+        self.__aviary = aviary
     
     @property
     def age(self):
@@ -32,12 +41,20 @@ class BaseAnimal:
         self.__area = value
 
     @property
+    def isVegan(self):
+        return self.__isVegan
+
+    @property
     def type(self):
         return self.__type
 
     @property
     def food(self):
         return self.__food
+
+    @property
+    def foods(self):
+        return self.__foods
 
     @property
     def biome(self):
@@ -60,11 +77,20 @@ class BaseAnimal:
     def isFeeded(self):
         return self.__foodAte >= self.__amountOfFood
 
+    @property
+    def amountOfFood(self):
+        return self.__amountOfFood
+
+    @property
+    def foodAte(self):
+        return self.__foodAte
+
     def eatFood(self, food, amount):
+        if not amount: pass
         if not self.isFeeded:
             if food in self.__food:
                 self.__foodAte += amount
-                print(self.__name + " съел" + (" " if self.__gender else "а ") + self.__foods[food])
+                print(f"{self.__name} съел{(' ' if self.__gender else 'а ')} {amount} кг {self.__foods[food]}")
             else:
                 print(self.__type.capitalize(), "это не ест")
         else:

@@ -4,9 +4,16 @@ p = Penguin("PenPen", 7, 0.3)
 e = Elephant("Матильда", 15, 5, 0)
 t = Tiger("Симба", 4, 5)
 w = Wolf("Вован", 2, 5)
+p1 = Penguin("SecPen", 1, 10)
+p2 = Penguin("ThPen", 2, 15)
 
-for i in range(10):
-    e.eatFood("листья", 10)
-    print(e.isFeeded)
-    # print(p.happiness)
-    # p.happiness += 15
+v = Aviary("aaa", "Пустыня", 100)
+b = Aviary("aaal", "Саванна", 100)
+
+v.addAnimal(p)
+v.addAnimal(p1)
+
+b.addAnimal(t)
+print()
+
+v.feedAnimals("рыба", 15)
