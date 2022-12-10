@@ -13,7 +13,13 @@ b = Aviary("aaal", "Саванна", 100)
 v.addAnimal(p)
 v.addAnimal(p1)
 
-b.addAnimal(t)
+b.addAnimal(e)
 print()
 
-v.feedAnimals("рыба", 15)
+v.feedAnimals("рыба", 5000)
+v.feedAnimals("мясо", 5000)
+print()
+
+v.needFood()
+
+v.foodRemain()
