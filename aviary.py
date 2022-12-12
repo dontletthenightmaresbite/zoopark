@@ -21,8 +21,8 @@ class Aviary:
         return self.__area
 
     @property
-    def animals(self):
-        return ", ".join(self.__animals)
+    def animals(self):            
+        return self.__animals
 
     @property
     def areaClaimed(self):
@@ -37,7 +37,7 @@ class Aviary:
 
     def addAnimal(self, Animal):
         if Animal.aviary:
-            print(f'{Animal.name} уже в вольере "{Animal.aviary}"'); return
+            print(f'{Animal.name} уже в вольере "{Animal.aviary.name}"');return
 
         if len(self.__animals)>0:
             if not (not Animal.isVegan and not self.__animals[0].isVegan and self.__animals[0].type == Animal.type) or (Animal.isVegan and self.__animals[0].isVegan):
@@ -51,6 +51,7 @@ class Aviary:
             print(f'Животному не хватает места =(');return
 
         self.__animals.append(Animal)
+        self.__areaFree -= Animal.area
         Animal.aviary = self
         print(f'{Animal.name} теперь в вольере "{self.__name}"!')
 
@@ -60,6 +61,7 @@ class Aviary:
 
         self.__animals.remove(Animal)
         Animal.aviary = 0
+        self.__areaFree += Animal.area
         print(f'{Animal.name} больше не в вольере "{self.__name}"')
 
     def makeSound(self):
@@ -91,7 +93,7 @@ class Aviary:
         if k: print(f'{k} животн{"ых" if k>1 else "ое"} в вольере "{self.__name}" покормлен{"ы" if k>1 else "о"}!' + 
         (f" Осталось {round(amount, 1)} кг {self.__foods[food]}" if amount > 0 else f" {self.__foods[food].capitalize()} не осталось"));return
 
-        print(f'Ни одно животное в вольере "{self.__name}" не ест {food}')
+        print(f'Ни одно животное в вольере "{self.__name}" это не ест ({food})')
         self.__food[food] = amount
 
     def needFood(self):
