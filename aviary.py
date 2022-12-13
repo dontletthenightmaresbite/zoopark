@@ -40,7 +40,7 @@ class Aviary:
             print(f'{Animal.name} уже в вольере "{Animal.aviary.name}"');return
 
         if len(self.__animals)>0:
-            if not (not Animal.isVegan and not self.__animals[0].isVegan and self.__animals[0].type == Animal.type) or (Animal.isVegan and self.__animals[0].isVegan):
+            if not ((not Animal.isVegan) and (not self.__animals[0].isVegan) and self.__animals[0].type == Animal.type) or (Animal.isVegan and self.__animals[0].isVegan):
                 print(f'{Animal.name} не сочетается с другими животными в вольере {self.__name}');return 
         
         if not Animal.biome == self.__biome:
