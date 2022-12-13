@@ -78,7 +78,7 @@ class Aviary:
         for animal in self.__animals:
             if amount <= 0: break
 
-            if food in animal.food:
+            if food in animal.food and (not animal.isFeeded):
                 if animal.amountOfFood - animal.foodAte < amount:
                     value = animal.amountOfFood - animal.foodAte
                     amount -= value
@@ -88,7 +88,7 @@ class Aviary:
                 animal.eatFood(food, value)
                 k += 1
 
-        if amount > 0: self.__food[food] = amount
+        self.__food[food] = amount
 
         if k: print(f'{k} животн{"ых" if k>1 else "ое"} в вольере "{self.__name}" покормлен{"ы" if k>1 else "о"}!' + 
         (f" Осталось {round(amount, 1)} кг {self.__foods[food]}" if amount > 0 else f" {self.__foods[food].capitalize()} не осталось"));return
@@ -102,8 +102,8 @@ class Aviary:
         for animal in self.__animals:
             if not animal.isFeeded:
                 amount = animal.amountOfFood - animal.foodAte
-                print(f"{animal.name} хочет ещё {amount} кг {', '.join(self.__foods[x] for x in animal.food[:-1]) + (' или ' if len(animal.food)-1 else '') + self.__foods[animal.food[-1]] }")
+                print(f"{animal.name} хочет ещё {round(amount, 2)} кг {', '.join(self.__foods[x] for x in animal.food[:-1]) + (' или ' if len(animal.food)-1 else '') + self.__foods[animal.food[-1]] }")
 
     def foodRemain(self):
         if sum(self.__food.values()) == 0: print("Еды не осталось!");return
-        print(f'В вольере "{self.__name}" осталось ' + ", ".join( [f"{self.__food[x]} кг {self.__foods[x]}" for x in self.__foods if self.__food[x] != 0] ))
+        print(f'В вольере "{self.__name}" осталось ' + ", ".join( [f"{round(self.__food[x])} кг {self.__foods[x]}" for x in self.__foods if self.__food[x] != 0] ))
