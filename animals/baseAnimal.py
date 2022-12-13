@@ -90,7 +90,7 @@ class BaseAnimal:
         if not self.isFeeded:
             if food in self.__food:
                 self.__foodAte += amount
-                print(f"{self.__name} съел{(' ' if self.__gender else 'а ')} {amount} кг {self.__foods[food]}")
+                print(f"{self.__name} съел{(' ' if self.__gender else 'а ')} {round(amount, 2)} кг {self.__foods[food]}")
             else:
                 print(self.__type.capitalize(), "это не ест")
         else:
