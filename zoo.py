@@ -4,7 +4,8 @@ class Zoo:
     def __init__(self, Name):
         self.__name = Name
         self.__aviaries = {}
-        self.__animals = []
+        self.__animals = {}
+        self.__foods = {"трава":"травы", "листья":"листьев", "фрукты":"фруктов", "рыба":"рыбы", "мясо":"мяса"}
         # print(Fore.GREEN + f'Добро пожаловать в "{self.__name}"!' + Style.RESET_ALL + '\n("Enter" для продолжения)')
 
     @property
@@ -35,6 +36,7 @@ class Zoo:
         pass
 
     def listAviaries(self):
+        print(" Список вольеров ".center(30, "#"))
         if len(self.__aviaries) == 0:
             print("В зоопарке нет ни одного вольера");return
 
@@ -53,7 +55,8 @@ class Zoo:
             elif Type == 3: animal = Wolf(Name, Age, AmountOfFood, Gender, Happiness)
             else: print("Такого животного не существует");return
 
-            self.__aviaries[Av].addAnimal(animal)
+            create = self.__aviaries[Av].addAnimal(animal)
+            if create: self.__animals[Name] = animal
         else:
             print("Животное с таким именем уже существует")
 
@@ -66,13 +69,31 @@ class Zoo:
         if not Animal in [x.name for x in From.animals]:
             print("Этого животного нет в вольере");return
 
-        
-        pass
+        move = self.__aviaries[To].addAnimal(self.__animals[Animal])
+        if move:
+            self.__aviaries[From].removeAnimal(self.__animals[Animal])
 
     def foodNeed(self):
+        print(" Нужно еды ".center(30, "#"))
+        allFood = {"рыба":0, "трава":0, "листья":0, "фрукты":0, "мясо":0}
+        for i in self.__aviaries:
+            av = self.__aviaries[i]
+            food = av.needFood()
+            if sum(food.values()):
+                print(f'"{i}": {", ".join([f"{food[x]} кг {self.__foods[x]}" for x in food if food[x] != 0])}.')
+                for x in food:
+                    allFood[x] += food[x]
+        if sum([allFood[x] for x in allFood]):
+            print("Чтобы покормить всех животных нужно: " + ", ".join([f"{allFood[x]} кг {self.__foods[x]}" for x in allFood if allFood[x] != 0]))
+        else:
+            print("Ни одно животное не голодно")
+        
+
+    def feedAnimal(self):
         pass
 
     def animalsInAviaries(self, aviary = False):
+        print(" Животные в вольерах ".center(30, "#"))
         for i in self.__aviaries:
             av = self.__aviaries[i].listAnimals()
             if av:

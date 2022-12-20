@@ -85,6 +85,10 @@ class BaseAnimal:
     def foodAte(self):
         return self.__foodAte
 
+    @property
+    def needFood(self):
+        return self.__amountOfFood - self.__foodAte
+
     def eatFood(self, food, amount):
         if not amount: pass
         if not self.isFeeded:

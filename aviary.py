@@ -58,6 +58,7 @@ class Aviary:
         self.__areaFree -= Animal.area
         Animal.aviary = self
         print(f'{Animal.name} теперь в вольере "{self.__name}"!')
+        return True
 
     def removeAnimal(self, Animal):
         if not Animal.aviary == self:
@@ -100,15 +101,21 @@ class Aviary:
         self.__food[food] = amount
 
     def listAnimals(self):
-        return ", ".join([f"{x.name}({x.type})"] for x in self.__animals)
+        return ", ".join([f"{x.name}({x.type})" for x in self.__animals])
 
-    def needFood(self):
+    def BeautyneedFood(self):
         if len(self.__animals) == 0: print(f'В вольере "{self.__name}" нет ни одного животного');return
 
         for animal in self.__animals:
             if not animal.isFeeded:
                 amount = animal.amountOfFood - animal.foodAte
                 print(f"{animal.name} хочет ещё {round(amount, 2)} кг {', '.join(self.__foods[x] for x in animal.food[:-1]) + (' или ' if len(animal.food)-1 else '') + self.__foods[animal.food[-1]] }")
+
+    def needFood(self):
+        food = dict.fromkeys(self.__food.keys(), 0)
+        for i in self.__animals:
+            food[i.food[0]] += i.needFood
+        return food
 
     def foodRemain(self):
         if sum(self.__food.values()) == 0: print("Еды не осталось!");return
