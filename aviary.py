@@ -29,6 +29,10 @@ class Aviary:
         return self.__area - self.__areaFree
 
     @property
+    def areaFree(self):
+        return self.__areaFree
+
+    @property
     def food(self):
         return self.__food
 
@@ -87,7 +91,6 @@ class Aviary:
                 
                 animal.eatFood(food, value)
                 k += 1
-
         self.__food[food] = amount
 
         if k: print(f'{k} животн{"ых" if k>1 else "ое"} в вольере "{self.__name}" покормлен{"ы" if k>1 else "о"}!' + 
@@ -95,6 +98,9 @@ class Aviary:
 
         print(f'Ни одно животное в вольере "{self.__name}" это не ест ({food})')
         self.__food[food] = amount
+
+    def listAnimals(self):
+        return ", ".join([f"{x.name}({x.type})"] for x in self.__animals)
 
     def needFood(self):
         if len(self.__animals) == 0: print(f'В вольере "{self.__name}" нет ни одного животного');return

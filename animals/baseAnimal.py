@@ -1,11 +1,11 @@
 class BaseAnimal:
 
-    def __init__(self, Name : str, Age : int, AmountOfFood, Gender : bool, Sound : str, Happiness : int, Food : list, Foods : dict, isVegan : bool, Biome : str, Type : str):
+    def __init__(self, Name : str, Age : int, AmountOfFood : float|int, Area : int, Gender : bool, Sound : str, Happiness : int, Food : list, Foods : dict, isVegan : bool, Biome : str, Type : str):
         self.__gender = Gender
         self.__name = Name
         self.__age = Age
         self.__amountOfFood = AmountOfFood
-        self.__area = 10
+        self.__area = Area
         self.__food = Food
         self.__foods = Foods
         self.__isVegan = isVegan

@@ -5,7 +5,7 @@ class Zoo:
         self.__name = Name
         self.__aviaries = {}
         self.__animals = []
-        print(f'Добро пожаловать в "{self.__name}"')
+        # print(Fore.GREEN + f'Добро пожаловать в "{self.__name}"!' + Style.RESET_ALL + '\n("Enter" для продолжения)')
 
     @property
     def name(self):
@@ -13,20 +13,67 @@ class Zoo:
 
     @property
     def aviaries(self):
-        print(", ".join([x for x in self.__aviaries]))
+        return [x for x in self.__aviaries]
 
     def createAviary(self, Name : str, Biome : str, Area : int):
         aviary = Aviary(Name, Biome, Area)
         if Name in self.__aviaries:
             print("Вольер с таким именем уже существует!")
-            del(aviary)
+            del aviary
         else:
             self.__aviaries[Name] = aviary
 
     def deleteAviary(self, Name):
+        if self.__aviaries.get(Name, 0):
+            av : Aviary = self.__aviaries[Name]
+            if av.area - av.areaFree == 0:
+                del self.__aviaries[Name]
+            else:
+                print("Нельзя снести вольер!\nВ вольере находятся животные!")
+        else:
+            print("Такого вольера не существует!")
         pass
 
-    def createAnimal(self, Type, Name, Age, AmountOfFood, ):
+    def listAviaries(self):
+        if len(self.__aviaries) == 0:
+            print("В зоопарке нет ни одного вольера");return
 
-    def animalMove(self):
+        for i, name in enumerate(self.__aviaries, 1):
+            aviary = self.__aviaries[name]
+            print(f'{i}. "{aviary.name}": {aviary.biome}, {aviary.areaClaimed}/{aviary.area}')
+
+    def animalCreate(self, Av, Type, Name : str, Age : int, AmountOfFood : float|int, Gender : bool = 1, Happiness : int = 65):
+        """Types:\n0: Penguin\n1: Elephant\n2: Tiger\n3: Wolf"""
+        if not Av in self.__aviaries: print("Такого вольера не существует");return
+
+        if not Name in self.__animals:
+            if Type == 0: animal = Penguin(Name, Age, AmountOfFood, Gender, Happiness)
+            elif Type == 1: animal = Elephant(Name, Age, AmountOfFood, Gender, Happiness)
+            elif Type == 2: animal = Tiger(Name, Age, AmountOfFood, Gender, Happiness)
+            elif Type == 3: animal = Wolf(Name, Age, AmountOfFood, Gender, Happiness)
+            else: print("Такого животного не существует");return
+
+            self.__aviaries[Av].addAnimal(animal)
+        else:
+            print("Животное с таким именем уже существует")
+
+    def animalDel(self, Av, Animal):
         pass
+
+    def animalMove(self, Animal, From, To):
+        if not From in self.__aviaries and To in self.__aviaries: print("Такого вольера не существует");return
+
+        if not Animal in [x.name for x in From.animals]:
+            print("Этого животного нет в вольере");return
+
+        
+        pass
+
+    def foodNeed(self):
+        pass
+
+    def animalsInAviaries(self, aviary = False):
+        for i in self.__aviaries:
+            av = self.__aviaries[i].listAnimals()
+            if av:
+                print(f'"{i}": {av}.')

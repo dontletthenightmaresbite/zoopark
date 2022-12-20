@@ -1,28 +1,8 @@
 from alllibs import *
 
-p = Penguin("PenPen", 7, 0.3)
-e = Elephant("Матильда", 15, 5, 0)
-e1 = Elephant("Матильда", 15, 5, 0)
-t = Tiger("Симба", 4, 5)
-w = Wolf("Вован", 2, 5)
-p1 = Penguin("SecPen", 1, 10)
-p2 = Penguin("ThPen", 2, 15)
+z = Zoo("aaa")
+z : Zoo
 
-v = Aviary("aaa", "Саванна", 100)
-b = Aviary("aaal", "Саванна", 100)
+z.createAviary("asd", "Пустыня", 100)
 
-v.addAnimal(e)
-v.addAnimal(e1)
-
-b.addAnimal(e)
-print()
-
-v.feedAnimals("рыба", 5000)
-v.feedAnimals("мясо", 5000)
-print()
-
-v.needFood()
-
-v.foodRemain()
-
-print(v.animals)
+z.createAnimal()
